@@ -1,0 +1,42 @@
+﻿course,year,semester
+CMPS151,1,Fall
+CHEM101,1,Fall
+CHEM103,1,Fall
+MATH101,1,Fall
+ENGL202,1,Fall
+HIST121,1,Fall
+CMPS251,1,Spring
+PHYS191,1,Spring
+PHYS192,1,Spring
+MATH231,1,Spring
+MATH102,1,Spring
+ENGL203,1,Spring
+CMPS200,2,Fall
+CMPS205,2,Fall
+CMPS303,2,Fall
+PHYS193,2,Fall
+PHYS194,2,Fall
+ARAB100,2,Fall
+CMPS323,2,Spring
+CMPS351,2,Spring
+CMPE263,2,Spring
+GENG200,2,Spring
+ARAB200,2,Spring
+CMPS310,3,Fall
+CMPE355,3,Fall
+Major Elective,3,Fall
+GENG300,3,Fall
+Natural Science/Mathematics Package,3,Fall
+CMPS385,3,Spring
+CMPS350,3,Spring
+CMPS405,3,Spring
+Major Elective,3,Spring
+DAWA111,3,Spring
+CMPS493,4,Fall
+CMPS307,4,Fall
+Major Elective,4,Fall
+Humanities/Fine Arts Package,4,Fall
+CMPS499,4,Spring
+MAGT101,4,Spring
+Major Elective,4,Spring
+Social/Behavioral Sciences Package,4,Spring

@@ -1,0 +1,48 @@
+﻿course,year,semester
+ENGL202,1,Fall
+MATH101,1,Fall
+GENG107,1,Fall
+GENG106,1,Fall
+CHEM101,1,Fall
+CHEM103,1,Fall
+GENG111,1,Spring
+MATH102,1,Spring
+PHYS191,1,Spring
+PHYS192,1,Spring
+ENGL203,1,Spring
+ARAB100,1,Spring
+MATH211,2,Fall
+PHYS193,2,Fall
+PHYS194,2,Fall
+MECH221,2,Fall
+GENG200,2,Fall
+MECH241,2,Fall
+MATH217,2,Spring
+MECH222,2,Spring
+MECH224,2,Spring
+MECH223,2,Spring
+MATH231,2,Spring
+GENG231,2,Spring
+MECH321,3,Fall
+MECH333,3,Fall
+MECH342,3,Fall
+MECH343,3,Fall
+MECH230,3,Fall
+MECH213,3,Fall
+GENG300,3,Spring
+GENG360,3,Spring
+MECH330,3,Spring
+MECH344,3,Spring
+MECH322,3,Spring
+MECH441,3,Spring
+MECH399,3,Summer
+MECH361,4,Fall
+MECH448,4,Fall
+MECH487,4,Fall
+Major Elective,4,Fall
+DAWA111,4,Fall
+HIST121,4,Fall
+MECH488,4,Spring
+Social/Behavioral Sciences Package,4,Spring
+Major Elective,4,Spring
+Major Elective,4,Spring

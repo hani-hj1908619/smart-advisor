@@ -1,0 +1,300 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fieldReference"]
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  relationMode      = "prisma"
+}
+
+model College {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(255)
+  departments Department[]
+  majors      Major[]
+  courses     Course[]
+  User        User[]
+}
+
+model Department {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(255)
+  collegeId Int
+  college   College  @relation(fields: [collegeId], references: [id])
+  courses   Course[]
+
+  @@index([collegeId])
+}
+
+model Major {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(255)
+  code        String       @unique @db.VarChar(4)
+  collegeId   Int
+  college     College      @relation(fields: [collegeId], references: [id])
+  degreePlans DegreePlan[]
+  UserPlan    UserPlan[]
+  User        User[]
+  Package     Package[]
+
+  @@index([collegeId])
+}
+
+model Semester {
+  id             Int              @id
+  name           String           @unique @db.VarChar(255)
+  main           Boolean
+  DegreePlan     DegreePlan[]
+  UserPlanCourse UserPlanCourse[]
+  Term           Term[]
+  UserPlan       UserPlan[]
+}
+
+model User {
+  id        Int     @id
+  password  String  @db.VarChar(255)
+  name      String  @db.VarChar(255)
+  gender    String  @db.Char(255)
+  joinYear  Int
+  collegeId Int
+  college   College @relation(fields: [collegeId], references: [id])
+  majorId   Int?
+  major     Major?  @relation(fields: [majorId], references: [id])
+
+  UserPlan        UserPlan[]
+  UserSchedule    UserSchedule[]
+  UserGrade       UserGrade[]
+  Review          Review[]
+  CourseWatchlist CourseWatchlist[]
+  Todo            Todo[]
+
+  @@index([collegeId])
+  @@index([majorId])
+}
+
+model Instructor {
+  id         Int          @id
+  name       String       @db.VarChar(255)
+  TermCourse TermCourse[]
+  Review     Review[]
+}
+
+model Course {
+  id              Int               @id @default(autoincrement())
+  code            String            @db.VarChar(8)
+  title           String            @db.VarChar(255)
+  description     String            @db.VarChar(3000)
+  type            String            @db.VarChar(2) // Lecture - LC, Lab - LB, Linked Lab - LL
+  level           String            @db.VarChar(2)
+  linkedLab       Boolean
+  creditHours     Int
+  preRequisites   String?           @db.VarChar(500)
+  availableTerms  String?           @db.VarChar(20)
+  gradeMode       String?           @db.VarChar(1)
+  departmentId    Int?
+  department      Department?       @relation(fields: [departmentId], references: [id])
+  collegeId       Int
+  college         College           @relation(fields: [collegeId], references: [id])
+  DegreePlan      DegreePlan[]
+  PackageCourse   PackageCourse[]
+  Review          Review[]
+  UserPlanCourse  UserPlanCourse[]
+  TermCourse      TermCourse[]
+  CourseWatchlist CourseWatchlist[]
+  UserSchedule    UserSchedule[]
+
+  @@unique([code, type], name: "courseIdentifier")
+  @@index([departmentId])
+  @@index([collegeId])
+}
+
+model Package {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(255)
+  majorId Int
+  major   Major  @relation(fields: [majorId], references: [id])
+
+  PackageCourse  PackageCourse[]
+  DegreePlan     DegreePlan[]
+  UserPlanCourse UserPlanCourse[]
+
+  @@index([majorId])
+}
+
+model PackageCourse {
+  id        Int     @id @default(autoincrement())
+  packageId Int
+  package   Package @relation(fields: [packageId], references: [id])
+  courseId  Int
+  course    Course  @relation(fields: [courseId], references: [id])
+
+  @@index([packageId])
+  @@index([courseId])
+}
+
+model DegreePlan {
+  id         Int      @id @default(autoincrement())
+  majorId    Int
+  major      Major    @relation(fields: [majorId], references: [id])
+  courseId   Int?
+  course     Course?  @relation(fields: [courseId], references: [id])
+  packageId  Int?
+  package    Package? @relation(fields: [packageId], references: [id])
+  year       Int
+  semesterId Int
+  semester   Semester @relation(fields: [semesterId], references: [id])
+
+  @@index([packageId])
+  @@index([courseId])
+  @@index([majorId])
+  @@index([semesterId])
+}
+
+model Term {
+  id              Int               @id
+  year            Int
+  semesterId      Int
+  semester        Semester          @relation(fields: [semesterId], references: [id])
+  TermCourse      TermCourse[]
+  CourseWatchlist CourseWatchlist[]
+
+  @@index([semesterId])
+}
+
+model TermCourse {
+  id                  Int            @id @default(autoincrement())
+  crn                 Int
+  termId              Int
+  term                Term           @relation(fields: [termId], references: [id])
+  courseId            Int
+  course              Course         @relation(fields: [courseId], references: [id])
+  instructorId        Int?
+  instructor          Instructor?    @relation(fields: [instructorId], references: [id])
+  sectionNo           String         @db.Char(5)
+  campus              String         @db.Char(1)
+  instructionalMethod String         @db.VarChar(255)
+  seatsTotal          Int
+  seatsCurrent        Int
+  waitlistTotal       Int
+  waitlistCurrent     Int
+  meetingDays         String?        @db.VarChar(255)
+  meetingTimeStart    String?        @db.VarChar(5)
+  meetingTimeEnd      String?        @db.VarChar(5)
+  room                String?        @db.VarChar(20)
+  UserSchedule        UserSchedule[]
+  UserGrade           UserGrade[]
+
+  @@index([termId])
+  @@index([courseId])
+  @@index([instructorId])
+}
+
+model UserGrade {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id])
+  termCourseId Int
+  termCourse   TermCourse @relation(fields: [termCourseId], references: [id])
+  grade        String     @db.VarChar(2)
+
+  @@index([userId])
+  @@index([termCourseId])
+}
+
+model UserPlan {
+  id              Int              @id @default(autoincrement())
+  name            String           @db.VarChar(255)
+  userId          Int
+  user            User             @relation(fields: [userId], references: [id])
+  majorId         Int
+  major           Major            @relation(fields: [majorId], references: [id])
+  startSemesterId Int
+  semester        Semester         @relation(fields: [startSemesterId], references: [id])
+  mainPlan        Boolean
+  UserPlanCourse  UserPlanCourse[]
+
+  @@index([majorId])
+  @@index([startSemesterId])
+  @@index([userId])
+}
+
+model UserPlanCourse {
+  id                 Int       @id @default(autoincrement())
+  planId             Int?
+  userPlan           UserPlan? @relation(fields: [planId], references: [id])
+  courseId           Int?
+  course             Course?   @relation(fields: [courseId], references: [id])
+  packageId          Int?
+  package            Package?  @relation(fields: [packageId], references: [id])
+  year               Int
+  semesterId         Int
+  semester           Semester  @relation(fields: [semesterId], references: [id])
+  planRequiredCourse Boolean
+
+  @@index([packageId])
+  @@index([courseId])
+  @@index([semesterId])
+  @@index([planId])
+}
+
+model UserSchedule {
+  id           Int         @id @default(autoincrement())
+  userId       Int
+  user         User        @relation(fields: [userId], references: [id])
+  courseId     Int
+  course       Course      @relation(fields: [courseId], references: [id])
+  termCourseId Int?
+  termCourse   TermCourse? @relation(fields: [termCourseId], references: [id])
+
+  @@index([courseId])
+  @@index([termCourseId])
+  @@index([userId])
+}
+
+model Review {
+  id           Int         @id @default(autoincrement())
+  reviewDate   DateTime    @default(now())
+  userId       Int
+  user         User        @relation(fields: [userId], references: [id])
+  instructorId Int?
+  instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  courseId     Int?
+  course       Course?     @relation(fields: [courseId], references: [id])
+  material     Float?
+  difficulty   Float?
+  courseLoad   Float?
+  teaching     Float?
+  grading      Float?
+  overall      Float?
+
+  @@index([userId])
+  @@index([instructorId])
+  @@index([courseId])
+}
+
+model CourseWatchlist {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  user     User   @relation(fields: [userId], references: [id])
+  termId   Int
+  term     Term   @relation(fields: [termId], references: [id])
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@index([termId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+model Todo {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  title     String  @db.VarChar(255)
+  completed Boolean
+
+  @@index([userId])
+}
