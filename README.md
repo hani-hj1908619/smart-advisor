@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Smart Advisor
 
-## Getting Started
+Smart Advisor is an intelligent academic planning tool designed to streamline the degree planning and semester scheduling process. With personalized recommendations, intuitive planning features, and comprehensive review systems, Smart Advisor empowers students to make informed decisions about their academic journey.
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Frontend
+- Next.js + Chakra UI
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Backend
+- **PostgreSQL**: Used as the backend database for storing all application data.
+- **Prisma**: Used to provide an ORM layer for interacting with the database and generates type-safe query builders based on the defined data models.
+- **Next.js**: Used to create API endpoints that were used in both the web and mobile applications.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Features
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Create personalized degree study plans
+- Intelligent warnings to prevent missing pre-requisites and graduation delays
+- Create and save multiple study plans
+- Smart scheduling algorithm for conflict-free semester planning
+- Comprehensive course and instructor review system
+- Easy integration with existing university systems using adapters
 
-## Learn More
+## Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+![Screenshot 1](https://i.imgur.com/IyVO0O9.png)
+![Screenshot 2](https://i.imgur.com/IOLU06j.png)
+![Screenshot 2](https://i.imgur.com/pQOvHcq.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Check out the [demo](https://degree-pilot.vercel.app/) to explore Smart Advisor in action. [Click here](https://degree-pilot.vercel.app/signup) to create an account to test the demo.
 
-## Deploy on Vercel
+## Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To install Smart Advisor locally, follow these steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository: `git clone https://github.com/hani-hj1908619/smart-advisor.git`
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
